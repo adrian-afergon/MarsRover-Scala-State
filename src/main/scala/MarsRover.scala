@@ -6,6 +6,7 @@ class MarsRover (initialDirection: Direction) {
   private def rotateBasedOn(command: Command): Unit = {
     direction = command.instructions match {
       case "L" => direction.atLeft()
+      case "R" => direction.atRight()
     }
   }
 }
