@@ -1,26 +1,18 @@
-class MarsRover (initialDirection: Direction) {
-  var command: Command = _
-  var direction: Direction = initialDirection
+class MarsRover (initialOrientation: Orientation) {
+  var orientation: Orientation = initialOrientation
 
-  def execute(action: Action): Unit = rotateBasedOn(action)
+  def execute(command: Command): Unit = rotateBasedOn(command)
 
-  private def rotateBasedOn(action: Action): Unit = {
-    action.instructions.foreach { instruction =>
-      direction = instruction match {
-        case 'L' =>
-          var rotateLeftCommand = RotateLeftCommand(direction)
-          command = rotateLeftCommand
-          command.execute()
-        case 'R' =>
-          var rotateRightCommand = RotateRightCommand(direction)
-          command = rotateRightCommand
-          command.execute()
+  private def rotateBasedOn(command: Command): Unit = {
+    command.instructions.foreach { instruction =>
+      orientation = instruction match {
+        case 'L' => orientation.atLeft()
+        case 'R' => orientation.atRight()
       }
     }
   }
 }
 
 object MarsRover {
-  def land(direction: Direction) = new MarsRover(direction)
-
+  def land(orientation: Orientation) = new MarsRover(orientation)
 }
