@@ -19,5 +19,13 @@ class MarsRoverTest extends AnyFunSpec with TableDrivenPropertyChecks with shoul
 
       marsRover.orientation should be(South())
     }
+
+    it("should move forward considering current orientation and position") {
+      val marsRover = MarsRover.land(North(), Position(0, 0))
+
+      marsRover.execute(Command("FFF"))
+
+      marsRover.position should be(Position(0, 3))
+    }
   }
 }

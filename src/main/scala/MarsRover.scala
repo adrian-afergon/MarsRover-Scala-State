@@ -1,17 +1,11 @@
 class MarsRover (initialOrientation: Orientation, initialPosition: Position) {
-  val position: Position = initialPosition
-
   var orientation: Orientation = initialOrientation
+  var position: Position = initialPosition
 
-  def execute(command: Command): Unit = rotateBasedOn(command)
-
-  private def rotateBasedOn(command: Command): Unit = {
-    command.instructions.foreach { instruction =>
-      orientation = instruction match {
-        case 'L' => orientation.atLeft()
-        case 'R' => orientation.atRight()
-      }
-    }
+  def execute(command: Command): Unit = command.instructions.foreach {
+    case 'L' => orientation = orientation.atLeft()
+    case 'R' => orientation = orientation.atRight()
+    case 'F' => position = position.moveForwardBasedOn(orientation)
   }
 }
 
